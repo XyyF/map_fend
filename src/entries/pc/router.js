@@ -14,20 +14,19 @@ import VueRouter from 'vue-router';
 
 // 注释里的是分块js名，加workbench_前缀是为避免和某个入口或chunk同名，否则会无法运行
 const page404 = r => import(/* webpackChunkName: "workbench_404" */'./pages/404.vue').then(r)
-const indexPage = r => import(/* webpackChunkName: "workbench_index" */'./pages/main/index.vue').then(r)
-const workbench = r => import(/* webpackChunkName: "workbench_index" */'./pages/workbench/index.vue').then(r)
+// const indexPage = r => import(/* webpackChunkName: "workbench_index" */'./pages/main/index.vue').then(r)
+const map = r => import(/* webpackChunkName: "workbench_index" */'./pages/map/index.vue').then(r)
 
 // 定义路由映射。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者组件配置对象
 const routes = [
-    {path: '', redirect: {name: 'workbench'}},
+    {path: '', redirect: {name: 'map'}},
     {
         path: '/admin',
-        component: indexPage,
-        name: 'index',
+        component: map,
+        name: 'map',
         children: [
             // 重定向到工作台页面，而不给工作台设置path为空的别名，是为了让侧边栏能识别到当前打开了哪个子页面
-            {path: '', redirect: {name: 'workbench'}},
-            {path: 'workbench', name: 'workbench', component: workbench},
+            // {path: '', redirect: {name: 'map'}},
         ]
     },
     // 必须放最后

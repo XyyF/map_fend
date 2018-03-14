@@ -1,22 +1,12 @@
 <template>
     <div class="page-index">
-        31231
-        <top-menu></top-menu>
-        <side-menu></side-menu>
-        <router-view class="content"></router-view>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import topMenu from './top_menu.vue'
-    import sideMenu from './side_menu.vue'
-
     export default {
         name: 'index',
-        components: {
-            topMenu,
-            sideMenu,
-        }
     }
 </script>
 

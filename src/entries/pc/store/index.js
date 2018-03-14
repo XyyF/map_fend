@@ -10,6 +10,8 @@ Vue.use(Vuex)
 const state = {
     topMenu: ['组件'],
     sideMenu: ['日历'],
+    map: {},
+    AMap: {},
 }
 
 const store = new Vuex.Store({

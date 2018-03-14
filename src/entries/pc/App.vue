@@ -1,6 +1,6 @@
 <template>
-    <div id="app">
-        <router-view class="page-root"></router-view>
+    <div class="root-page">
+        <router-view></router-view>
     </div>
 </template>
 
@@ -14,9 +14,6 @@
 
     export default {
         name: 'app',
-        data() {
-            return {};
-        },
         // 通过 router 配置参数注入路由，从而让整个应用都有路由功能
         router,
         store,
@@ -29,8 +26,15 @@
 <style src="./styles/iconfont_all/iconfont.css"></style>
 
 <style>
-    #app {
-        height: 100%;
-        width: 100%;
+    .root-page {
+        width: 297px;
+        height: 590px;
+        background: url('./images/phone.svg');
+        margin: 0 auto;
+        position: relative;
+    }
+    .amap-sug-result {
+        max-width: 267px;
+        overflow-x: hidden;
     }
 </style>
