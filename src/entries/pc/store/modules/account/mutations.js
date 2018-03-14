@@ -1,7 +1,8 @@
-import commonUtils from 'utils/common_utils';
+import commonUtils from '../../../../../utils/common_utils';
 
 export default {
     setAccount(state, account) {
+        debugger
         commonUtils.localStorage.MANAGER_ACCOUNT = account;
         commonUtils.localStorage.ACCOUNT = undefined
         state.myAccount = account || Object.assign({}, state.DEFAULT_ACCOUNT)

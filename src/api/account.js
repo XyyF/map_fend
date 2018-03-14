@@ -18,7 +18,6 @@ export const signIn = (phone, password) => {
         password,
         accountType: 2,
     })
-        .tap(log)
 }
 
 /**
@@ -35,7 +34,6 @@ export const signUp = (phone, password, name, scert) => {
         name,
         scert
     })
-        .tap(log)
 }
 
 /**
@@ -43,5 +41,4 @@ export const signUp = (phone, password, name, scert) => {
  */
 export const signOut = () => {
     return httpRequestor.post('/account/sign_out')
-        .tap(log)
 }

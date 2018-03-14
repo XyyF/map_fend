@@ -17,6 +17,8 @@ const page404 = r => import(/* webpackChunkName: "workbench_404" */'./pages/404.
 // const indexPage = r => import(/* webpackChunkName: "workbench_index" */'./pages/main/index.vue').then(r)
 const map = r => import(/* webpackChunkName: "workbench_index" */'./pages/map/index.vue').then(r)
 const user = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/index.vue').then(r)
+const login = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/login.vue').then(r)
+const register = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/register.vue').then(r)
 
 // 定义路由映射。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者组件配置对象
 const routes = [
@@ -31,6 +33,8 @@ const routes = [
         ]
     },
     {path: '/user', component: user, name: 'user'},
+    {path: '/user/login', component: login, name: 'login'},
+    {path: '/user/register', component: register, name: 'register'},
     // 必须放最后
     {path: '/admin/*', component: page404, meta: {}},
 ]

@@ -22,9 +22,6 @@ export default {
         ACCOUNT: false,
         // 管理员登录后获得的用户信息
         MANAGER_ACCOUNT: false,
-        // 学生登录后获得的用户信息
-        STUDENT_ACCOUNT: false,
-        IMGDATA: false,
         // 权限列表
         SYNC_DATA_CACHE: false
     }),
@@ -142,7 +139,7 @@ function initStorage(stub, proxy) {
     function redefineKey(key, isOneshot) {
         Object.defineProperty(result, key, {
             get() {
-                const realKey = `workbench_${key}`;
+                const realKey = `MAP_${key}`;
                 let value = stub.getItem(realKey);
                 try {
                     value = JSON.parse(value);
@@ -161,7 +158,7 @@ function initStorage(stub, proxy) {
                 return value;
             },
             set(value) {
-                const realKey = `${window.gProjectName.toUpperCase()}_${key}${window.devEnv ? '_dev' : ''}`;
+                const realKey = `MAP_${key}`;
                 if (value === undefined) {
                     // 删除
                     try {
