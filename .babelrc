@@ -6,9 +6,8 @@
                 "modules": false,
                 "targets": {
                     "browsers": [
-                        "> 1%",
-                        "last 2 versions",
-                        "not ie <= 8"
+                        "chrome > 30",
+                        "ie >= 10"
                     ]
                 }
             }
@@ -22,6 +21,10 @@
                 {
                     "libraryName": "meetin-sass-ui",
                     "styleLibraryName": "~src/entries/pc/styles/el-theme"
+                },
+                {
+                    "libraryName": "meetin-components",
+                    "styleLibraryName": "~src/entries/pc/styles/style"
                 }
             ]
         ],

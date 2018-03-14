@@ -27,6 +27,9 @@ module.exports = {
             // 可通过绝对路径引入的文件
             'components': resolve('src/components'),
             'vue_plugins': resolve('src/vue_plugins'),
+            'utils': resolve('src/utils'),
+            'api': resolve('src/api'),
+            'common': resolve('common'),
         }
     },
     module: {
@@ -50,8 +53,7 @@ module.exports = {
                 loader: 'babel-loader',
                 include: [resolve('src'), resolve('test')]
             },
-            {test: /\.s[c|a]ss$/, loader: 'style-loader!css-loader!sass-loader'},
-            {test: /\.css$/, loader: 'vue-loader'},
+            { test: /\.s[c|a]ss$/, loader: 'style-loader!css-loader!sass-loader' },
             {
                 test: /\.(png|jpe?g|gif|svg)$/,
                 loader: 'url-loader',

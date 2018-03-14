@@ -16,6 +16,7 @@ import VueRouter from 'vue-router';
 const page404 = r => import(/* webpackChunkName: "workbench_404" */'./pages/404.vue').then(r)
 // const indexPage = r => import(/* webpackChunkName: "workbench_index" */'./pages/main/index.vue').then(r)
 const map = r => import(/* webpackChunkName: "workbench_index" */'./pages/map/index.vue').then(r)
+const user = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/index.vue').then(r)
 
 // 定义路由映射。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者组件配置对象
 const routes = [
@@ -29,6 +30,7 @@ const routes = [
             // {path: '', redirect: {name: 'map'}},
         ]
     },
+    {path: '/user', component: user, name: 'user'},
     // 必须放最后
     {path: '/admin/*', component: page404, meta: {}},
 ]

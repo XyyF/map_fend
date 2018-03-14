@@ -1,6 +1,6 @@
 <template>
     <div class="root-page">
-        <router-view></router-view>
+        <router-view class="root"></router-view>
     </div>
 </template>
 
@@ -36,5 +36,13 @@
     .amap-sug-result {
         max-width: 267px;
         overflow-x: hidden;
+    }
+    .root {
+        width: 267px;
+        height: 462px;
+        position: absolute;
+        left: 15px;
+        top: 61px;
+
     }
 </style>

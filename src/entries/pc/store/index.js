@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
+import account from './modules/account'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
     actions,
     mutations,
     modules: {
+        account
     }
 })
 
@@ -31,12 +33,14 @@ if (module.hot) {
         './getters',
         './actions',
         './mutations',
+        './modules/account',
     ], () => {
         store.hotUpdate({
             // 获取更新后的模块。因为 babel 6 的模块编译格式问题，这里需要加上 .default
             getters: require('./getters').default,
             actions: require('./actions').default,
-            mutations: require('./mutations').default
+            mutations: require('./mutations').default,
+            account: require('./modules/account').default,
         })
     })
 }

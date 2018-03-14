@@ -4,6 +4,7 @@
         <div class="shadow" v-if="showSearch"></div>
         <div id="searchBox" ref="searchBox" :class="{'show-search': showSearch}">
             <div v-if="showSearch" class="return" @click="returnMap"><</div>
+            <small-avatar @click.native="goToUserDetail" v-if="!showSearch"></small-avatar>
             <input id="tipinput" ref="tipinput" type="input" placeholder="请输入关键字搜索"/>
             <div id="clearSearchBtn" ref="clearSearchBtn">
                 <div class="del">&#10005;</div>
@@ -24,6 +25,7 @@
 
 <script>
     import {mapActions} from 'vuex'
+    import smallAvatar from 'components/common/small_avatar.vue'
     import Search from './components/search.vue'
 
     export default {
@@ -39,6 +41,7 @@
         },
         components: {
             Search,
+            smallAvatar
         },
         methods: {
             ...mapActions({
@@ -46,6 +49,9 @@
             }),
             returnMap() {
                 this.showSearch = false
+            },
+            goToUserDetail() {
+                this.$router.push({name: 'user'})
             },
             init() {
                 const AMap = this.AMap = window.AMap;
@@ -173,12 +179,6 @@
     @import "../../../../components/pc/styles/basic_const";
 
     .root-page-wrap {
-        width: 267px;
-        height: 462px;
-        position: absolute;
-        left: 15px;
-        top: 61px;
-
         .shadow {
             -webkit-flex: 1;
             width: 100%;
@@ -295,15 +295,23 @@
             top: 15px;
             height: 30px;
             transition: all .3s;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            padding: 2px;
+            .small-avatar {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
         }
 
         #tipinput {
             width: 100%;
-            height: 30px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: none;
             font-size: 16px;
-            line-height: 30px;
             padding: 0 7px;
             box-sizing: border-box;
         }
