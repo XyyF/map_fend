@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import { Toast, Field, Button } from 'mint-ui';
+    import {Field, Button} from 'mint-ui';
     import {mapState, mapGetters, mapActions} from 'vuex'
 
     export default {
@@ -25,7 +25,6 @@
             };
         },
         components: {
-            [Toast.name]: Toast,
             [Field.name]: Field,
             [Button.name]: Button,
         },
@@ -47,7 +46,7 @@
             editName() {
                 this.validCheck().then(() => {
                     this.vxChangeName({name: this.userName}).then(() => {
-                        Toast('修改成功！');
+                        this.toast('修改成功！');
                         this.$router.push({name: 'user'})
                     }).catch((err) => {
                         console.log(err);
@@ -59,12 +58,12 @@
                     const pattern = new RegExp('[`~!@#\\$%\\^\\&\\*\\(\\)\\+<>\\?:"\\{\\},\\.\\\\\\/;\'\\[\\]]', 'im');
                     if (pattern.test(this.userName)) {
                         this.state2 = 'warning';
-                        Toast('昵称不能包含特殊字符');
+                        this.toast('昵称不能包含特殊字符');
                         reject(new Error('昵称不能包含特殊字符'))
                     }
                     if (this.userName.length > 15) {
                         this.state2 = 'warning';
-                        Toast('昵称名称过长');
+                        this.toast('昵称名称过长');
                         reject(new Error('昵称名称过长'))
                     }
                     resolve()

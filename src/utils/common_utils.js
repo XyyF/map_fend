@@ -15,6 +15,7 @@ export default {
     sessionStorage: initStorage(window.sessionStorage, {
         // OO页面向XX页面传递的数据
         XX_DATA_FOMR_OO_PAGE: true,
+        POINTER: false,
     }),
     // 利用getter和setter访问localStorage，支持直接读写object。这里的取值表示是否在读取过一次后就删除
     localStorage: initStorage(window.localStorage, {

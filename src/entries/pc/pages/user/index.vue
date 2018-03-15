@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import { Toast, Cell } from 'mint-ui';
+    import { Cell } from 'mint-ui';
     import {mapState, mapGetters, mapActions} from 'vuex'
     import {Button} from 'meetin-sass-ui'
     import smallAvatar from 'components/common/small_avatar.vue'
@@ -35,7 +35,6 @@
         },
         components: {
             smallAvatar,
-            [Toast.name]: Toast,
             [Cell.name]: Cell,
             [Button.name]: Button,
         },
@@ -56,7 +55,7 @@
             },
             signOut() {
                 this.vxSignOut().then(() => {
-                    Toast('退出登录成功！');
+                    this.toast('退出登录成功！');
                     this.$router.push({name: 'login'})
                 })
             },
@@ -74,13 +73,6 @@
             goToEditPassword() {
                 this.$router.push({name: 'editPassword'})
             }
-        },
-        mounted() {
-            this.$nextTick(() => {
-                if (!this.vxIsLoggedIn) {
-                    this.$router.push({name: 'login'})
-                }
-            })
         },
     }
 </script>

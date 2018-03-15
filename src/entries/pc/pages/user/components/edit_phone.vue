@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import {Toast, Field, Button} from 'mint-ui';
+    import {Field, Button} from 'mint-ui';
     import {mapState, mapActions} from 'vuex'
 
     export default {
@@ -28,7 +28,6 @@
             };
         },
         components: {
-            [Toast.name]: Toast,
             [Field.name]: Field,
             [Button.name]: Button,
         },
@@ -50,7 +49,7 @@
             editName() {
                 this.validCheck().then(() => {
                     this.vxChangePhone({phone: this.newPhone}).then(() => {
-                        Toast('修改成功！');
+                        this.toast('修改成功！');
                         this.$router.push({name: 'user'})
                     }).catch((err) => {
                         console.log(err);
@@ -61,13 +60,13 @@
                 return new Promise((resolve, reject) => {
                     if (this.originPhone !== this.vxMyAccount.phone) {
                         this.state1 = 'warning';
-                        Toast('原手机号码不匹配');
+                        this.toast('原手机号码不匹配');
                         reject(new Error('原手机号码不匹配'))
                     }
                     const phoneRegExp = new RegExp('^(\\+?86)?[19]\\d{10}$', 'gi');
                     if (!phoneRegExp.test(this.newPhone)) {
                         this.state2 = 'warning';
-                        Toast('新手机号码格式错误');
+                        this.toast('新手机号码格式错误');
                         reject(new Error('新手机号码格式错误'))
                     }
                     resolve()

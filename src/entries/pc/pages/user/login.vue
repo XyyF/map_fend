@@ -19,7 +19,6 @@
 </template>
 
 <script>
-    import { Toast } from 'mint-ui';
     import {mapState, mapGetters, mapActions} from 'vuex'
     import {Form, FormItemType} from 'meetin-components'
     import {Button} from 'meetin-sass-ui'
@@ -49,7 +48,6 @@
         },
         components: {
             smallAvatar,
-            [Toast.name]: Toast,
             [Form.name]: Form,
             [Button.name]: Button,
         },
@@ -75,7 +73,7 @@
                             password: this.userInfo.password
                         };
                         this.vxSignIn(signIn).then(() => {
-                            Toast('登录成功！');
+                            this.toast('登录成功！');
                             this.$router.push({name: 'user'})
                         });
                     })

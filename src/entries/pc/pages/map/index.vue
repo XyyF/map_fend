@@ -3,7 +3,9 @@
         <div id="container"></div>
         <div class="shadow" v-if="showSearch"></div>
         <div id="searchBox" ref="searchBox" :class="{'show-search': showSearch}">
-            <div v-if="showSearch" class="return" @click="returnMap"><</div>
+            <div v-if="showSearch" class="return" @click="returnMap">
+                <i class="el-icon-arrow-left"></i>
+            </div>
             <small-avatar @click.native="goToUserDetail" v-if="!showSearch"></small-avatar>
             <input id="tipinput" ref="tipinput" type="input" placeholder="请输入关键字搜索"/>
             <div id="clearSearchBtn" ref="clearSearchBtn">
@@ -20,12 +22,17 @@
         </div>
         <!-- loading -->
         <div id="loader" ref="loader"></div>
+        <div class="new-point" @click="changeNewPoint" v-if="vxIsLoggedIn">
+            <i class="el-icon-location" v-if="!canNewPoint"></i>
+            <i class="el-icon-close" v-else></i>
+        </div>
     </div>
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
     import smallAvatar from 'components/common/small_avatar.vue'
+    import commonUtils from 'utils/common_utils';
     import Search from './components/search.vue'
 
     export default {
@@ -35,6 +42,7 @@
                 showSearch: false,
                 showEmpty: false,
                 showHidden: true,
+                canNewPoint: false,
                 map: {},
                 AMap: {},
             };
@@ -43,10 +51,27 @@
             Search,
             smallAvatar
         },
+        computed: {
+            ...mapGetters({
+                vxIsLoggedIn: 'account/isLoggedIn'
+            })
+        },
         methods: {
             ...mapActions({
                 vxSetMap: 'setMap'
             }),
+            changeNewPoint() {
+                const map = this.map;
+                this.canNewPoint = !this.canNewPoint;
+                if (this.canNewPoint) {
+                    this.toast('开启创建点标记');
+                    map.setDefaultCursor('crosshair');
+                    this.initClick()
+                } else {
+                    this.toast('关闭创建点标记');
+                    map.setDefaultCursor('pointer');
+                }
+            },
             returnMap() {
                 this.showSearch = false
             },
@@ -61,7 +86,31 @@
                 });
                 this.vxSetMap({AMap, map: this.map});
                 this.initPlugins();
-                this.initServices()
+                this.initServices();
+            },
+            clickEvent(e) {
+                if (this.canNewPoint) {
+                    const AMap = this.AMap;
+                    const geocoder = new AMap.Geocoder();
+                    geocoder.getAddress([e.lnglat.getLng(), e.lnglat.getLat()], (status, result) => {
+                        ({
+                            complete: () => {
+                                commonUtils.sessionStorage.POINTER = result;
+                                this.$router.push({name: 'pointer'})
+                            },
+                            error: () => {
+                                this.toast('错误的信息')
+                            },
+                            'no_data': () => {
+                                this.toast('没有对应的地址信息')
+                            }
+                        }[status])()
+                    });
+                }
+            },
+            initClick() {
+                const that = this;
+                this.map.on('click', e => that.clickEvent(e));
             },
             // 缩放、小地图预览、定位
             initPlugins() {
@@ -287,7 +336,7 @@
 
         #searchBox {
             position: absolute;
-            width: 90%;
+            width: 95%;
             margin: 0 auto;
             left: 0;
             right: 0;
@@ -420,11 +469,25 @@
             width: 100% !important;
             top: 0 !important;
             display: flex;
+            border-radius: 0 !important;
             .return {
                 width: 30px;
                 cursor: pointer;
                 text-align: center;
             }
+        }
+
+        .new-point {
+            position: absolute;
+            width: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #fff;
+            top: 50px;
+            left: 5%;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 0 1px 2px #ccc;
         }
     }
 </style>

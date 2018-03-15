@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import {Toast, Field, Button} from 'mint-ui';
+    import {Field, Button} from 'mint-ui';
     import {mapState, mapActions} from 'vuex'
 
     export default {
@@ -28,7 +28,6 @@
             };
         },
         components: {
-            [Toast.name]: Toast,
             [Field.name]: Field,
             [Button.name]: Button,
         },
@@ -49,7 +48,7 @@
             },
             editPassword() {
                 this.vxModifyPassword({originalPassword: this.originPassword, newPassword: this.newPassword}).then(() => {
-                    Toast('修改成功！');
+                    this.toast('修改成功！');
                     this.$router.push({name: 'user'})
                 }).catch((err) => {
                     console.log(err);

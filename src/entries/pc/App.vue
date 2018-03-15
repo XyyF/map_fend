@@ -6,17 +6,33 @@
 
 <script>
     import Vue from 'vue';
+    import {mapGetters} from 'vuex'
+    import { Toast } from 'mint-ui'
     import VueRouter from 'vue-router';
     import router from './router.js';
     import store from './store';
 
     Vue.use(VueRouter);
+    Vue.component(Toast.name, Toast);
 
     export default {
         name: 'app',
+        computed: {
+            ...mapGetters({
+                vxIsLoggedIn: 'account/isLoggedIn'
+            })
+        },
         // 通过 router 配置参数注入路由，从而让整个应用都有路由功能
         router,
         store,
+        mounted() {
+            Vue.prototype.toast = Toast
+            this.$nextTick(() => {
+                if (!this.vxIsLoggedIn) {
+                    this.$router.push({name: 'login'})
+                }
+            })
+        }
     }
 </script>
 
