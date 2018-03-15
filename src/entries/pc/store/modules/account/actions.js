@@ -11,8 +11,19 @@ export default {
         const account = await api.signUp(phone, md5(password), name, scert);
         commit('setAccount', account)
     },
-    async logOut({commit}) {
+    async signOut({commit}) {
         await api.signOut();
         commit('setAccount', undefined)
+    },
+    async changeName({commit}, {name}) {
+        await api.editOwn({changedInfo: name});
+        commit('updateAccount', {name})
+    },
+    async changePhone({commit}, {phone}) {
+        await api.editOwn({changedInfo: phone});
+        commit('updateAccount', {phone})
+    },
+    async modifyPassword(context, {originalPassword, newPassword}) {
+        await api.modifyPassword(md5(originalPassword), md5(newPassword));
     },
 }

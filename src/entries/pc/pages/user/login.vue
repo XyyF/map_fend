@@ -1,7 +1,8 @@
 <template>
     <div class="user-wrap">
         <div class="return">
-            <span @click="returnMap"><</span>
+            <span @click="returnMap" class="return-button"><i class="el-icon-arrow-left"></i></span>
+            <span>登录</span>
         </div>
         <div class="detail-wrap">
             <small-avatar></small-avatar>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+    import { Toast } from 'mint-ui';
     import {mapState, mapGetters, mapActions} from 'vuex'
     import {Form, FormItemType} from 'meetin-components'
     import {Button} from 'meetin-sass-ui'
@@ -47,6 +49,7 @@
         },
         components: {
             smallAvatar,
+            [Toast.name]: Toast,
             [Form.name]: Form,
             [Button.name]: Button,
         },
@@ -71,15 +74,21 @@
                             phone: this.userInfo.phone,
                             password: this.userInfo.password
                         };
-                        this.vxSignIn(signIn);
+                        this.vxSignIn(signIn).then(() => {
+                            Toast('登录成功！');
+                            this.$router.push({name: 'user'})
+                        });
                     })
-                    .catch(() => {
+                    .finally(() => {
                         this.loading = false
                     })
             },
             goToRegister() {
                 this.$router.push({name: 'register'})
-            }
+            },
+            returnMap() {
+                this.$router.push({name: 'map'})
+            },
         },
         mounted() {
             this.$nextTick(() => {
@@ -95,9 +104,18 @@
     @import "../../../../components/pc/styles/basic_const";
 
     .user-wrap {
+        background-color: #f4f5f8;
         .return {
             padding: 0 10px;
             cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            line-height: 35px;
+            border-bottom: 1px solid #9fb9cc;
+            background-color: #fff;
+            .return-button {
+                float: left;
+            }
         }
         .detail-wrap {
             display: flex;
@@ -105,6 +123,8 @@
             justify-content: flex-start;
             align-items: center;
             padding: 30px 20px;
+            margin-top: 10px;
+            background: #fff;
         }
         .small-avatar {
             width: 100px;

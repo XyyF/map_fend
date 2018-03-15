@@ -25,6 +25,10 @@
                 {
                     "libraryName": "meetin-components",
                     "styleLibraryName": "~src/entries/pc/styles/style"
+                },
+                {
+                    "libraryName": "mint-ui",
+                    "style": true
                 }
             ]
         ],

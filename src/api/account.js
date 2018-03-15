@@ -40,5 +40,27 @@ export const signUp = (phone, password, name, scert) => {
  * 管理员登出
  */
 export const signOut = () => {
-    return httpRequestor.post('/account/sign_out')
+    return httpRequestor.get('/account/sign_out')
+}
+
+/**
+ * 编辑账户
+ * @param {string} changedInfo
+ */
+export const editOwn = ({changedInfo}) => {
+    return httpRequestor.post('/account/edit_own', {
+        changedInfo
+    })
+}
+
+/**
+ * 编辑密码
+ * @param {string} originalPassword
+ * @param {string} newPassword
+ */
+export const modifyPassword = (originalPassword, newPassword) => {
+    return httpRequestor.post('/account/modify_password', {
+        originalPassword,
+        newPassword
+    })
 }

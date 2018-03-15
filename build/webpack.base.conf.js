@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
 
@@ -53,7 +53,7 @@ module.exports = {
                 loader: 'babel-loader',
                 include: [resolve('src'), resolve('test')]
             },
-            { test: /\.s[c|a]ss$/, loader: 'style-loader!css-loader!sass-loader' },
+            {test: /\.s[c|a]ss$/, loader: 'style-loader!css-loader!sass-loader'},
             {
                 test: /\.(png|jpe?g|gif|svg)$/,
                 loader: 'url-loader',

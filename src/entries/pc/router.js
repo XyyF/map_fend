@@ -19,6 +19,9 @@ const map = r => import(/* webpackChunkName: "workbench_index" */'./pages/map/in
 const user = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/index.vue').then(r)
 const login = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/login.vue').then(r)
 const register = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/register.vue').then(r)
+const editName = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/components/edit_name.vue').then(r)
+const editPhone = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/components/edit_phone.vue').then(r)
+const editPassword = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/components/edit_password.vue').then(r)
 
 // 定义路由映射。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者组件配置对象
 const routes = [
@@ -32,9 +35,16 @@ const routes = [
             // {path: '', redirect: {name: 'map'}},
         ]
     },
-    {path: '/user', component: user, name: 'user'},
+    {
+        path: '/user',
+        component: user,
+        name: 'user',
+    },
     {path: '/user/login', component: login, name: 'login'},
     {path: '/user/register', component: register, name: 'register'},
+    {path: '/user/name', component: editName, name: 'editName'},
+    {path: '/user/phone', component: editPhone, name: 'editPhone'},
+    {path: '/user/password', component: editPassword, name: 'editPassword'},
     // 必须放最后
     {path: '/admin/*', component: page404, meta: {}},
 ]

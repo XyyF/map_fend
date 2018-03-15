@@ -1,7 +1,8 @@
 <template>
     <div class="user-wrap">
         <div class="return">
-            <span @click="returnMap"><</span>
+            <span @click="returnMap" class="return-button"><i class="el-icon-arrow-left"></i></span>
+            <span>注册</span>
         </div>
         <div class="detail-wrap">
             <small-avatar></small-avatar>
@@ -10,7 +11,7 @@
                      v-model="userInfo"
             ></mt-form>
             <div class="submit-button">
-                <el-button size="samll" :disabled="loading" @click.native="signIn" type="primary">注册</el-button>
+                <el-button size="samll" :disabled="loading" @click.native="signUp" type="primary">注册</el-button>
                 <span class="unit">已有账号？</span><span class="unit register" @click="goToLogin">登录</span>
             </div>
         </div>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+    import { Toast } from 'mint-ui';
     import {mapState, mapGetters, mapActions} from 'vuex'
     import {Form, FormItemType} from 'meetin-components'
     import {Button} from 'meetin-sass-ui'
@@ -53,6 +55,7 @@
         },
         components: {
             smallAvatar,
+            [Toast.name]: Toast,
             [Form.name]: Form,
             [Button.name]: Button,
         },
@@ -68,7 +71,7 @@
             ...mapActions({
                 vxSignUp: 'account/signUp'
             }),
-            signIn() {
+            signUp() {
                 this.loading = true;
                 this.$refs.userForm.validate()
                     .then(() => {
@@ -78,15 +81,21 @@
                             phone: this.userInfo.phone,
                             password: this.userInfo.password
                         };
-                        this.vxSignUp(signUp);
+                        this.vxSignUp(signUp).then(() => {
+                            Toast('注册成功！');
+                            this.$router.push({name: 'user'})
+                        });
                     })
-                    .catch(() => {
+                    .finally(() => {
                         this.loading = false
                     })
             },
             goToLogin() {
                 this.$router.push({name: 'login'})
-            }
+            },
+            returnMap() {
+                this.$router.push({name: 'map'})
+            },
         },
         mounted() {
             this.$nextTick(() => {
@@ -102,16 +111,27 @@
     @import "../../../../components/pc/styles/basic_const";
 
     .user-wrap {
+        background-color: #f4f5f8;
         .detail-wrap {
             display: flex;
             flex-flow: column nowrap;
             justify-content: flex-start;
             align-items: center;
             padding: 30px 20px;
+            margin-top: 10px;
+            background: #fff;
         }
         .return {
             padding: 0 10px;
             cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            line-height: 35px;
+            border-bottom: 1px solid #9fb9cc;
+            background-color: #fff;
+            .return-button {
+                float: left;
+            }
         }
         .small-avatar {
             width: 100px;
