@@ -22,6 +22,7 @@ const register = r => import(/* webpackChunkName: "workbench_index" */'./pages/u
 const editName = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/components/edit_name.vue').then(r)
 const editPhone = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/components/edit_phone.vue').then(r)
 const editPassword = r => import(/* webpackChunkName: "workbench_index" */'./pages/user/components/edit_password.vue').then(r)
+const newPointer = r => import(/* webpackChunkName: "workbench_index" */'./pages/map/components/new_pointer.vue').then(r)
 const pointer = r => import(/* webpackChunkName: "workbench_index" */'./pages/map/components/pointer.vue').then(r)
 
 // 定义路由映射。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者组件配置对象
@@ -45,6 +46,7 @@ const routes = [
     {path: '/user/name', component: editName, name: 'editName'},
     {path: '/user/phone', component: editPhone, name: 'editPhone'},
     {path: '/user/password', component: editPassword, name: 'editPassword'},
+    {path: '/map/newPointer', component: newPointer, name: 'newPointer'},
     {path: '/map/pointer', component: pointer, name: 'pointer'},
     // 必须放最后
     {path: '/admin/*', component: page404, meta: {}},

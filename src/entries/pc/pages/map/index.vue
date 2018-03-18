@@ -53,12 +53,14 @@
         },
         computed: {
             ...mapGetters({
-                vxIsLoggedIn: 'account/isLoggedIn'
+                vxIsLoggedIn: 'account/isLoggedIn',
+                vxgPoints: 'point/points'
             })
         },
         methods: {
             ...mapActions({
-                vxSetMap: 'setMap'
+                vxSetMap: 'setMap',
+                vxPoints: 'point/points'
             }),
             changeNewPoint() {
                 const map = this.map;
@@ -87,6 +89,7 @@
                 this.vxSetMap({AMap, map: this.map});
                 this.initPlugins();
                 this.initServices();
+                this.initMarker();
             },
             clickEvent(e) {
                 if (this.canNewPoint) {
@@ -95,8 +98,12 @@
                     geocoder.getAddress([e.lnglat.getLng(), e.lnglat.getLat()], (status, result) => {
                         ({
                             complete: () => {
-                                commonUtils.sessionStorage.POINTER = result;
-                                this.$router.push({name: 'pointer'})
+                                commonUtils.sessionStorage.POINTER = {
+                                    regeocode: result.regeocode,
+                                    longitude: e.lnglat.getLng(),
+                                    latitude: e.lnglat.getLat(),
+                                };
+                                this.$router.push({name: 'newPointer'})
                             },
                             error: () => {
                                 this.toast('错误的信息')
@@ -111,6 +118,32 @@
             initClick() {
                 const that = this;
                 this.map.on('click', e => that.clickEvent(e));
+            },
+            initMarker() {
+                const AMap = this.AMap;
+                this.vxgPoints.forEach((e) => {
+                    const marker = new AMap.Marker({
+                        position: e.position,
+                        title: e.address,
+                        map: this.map,
+                        clickable: true,
+                    });
+                    const infoWindow = new AMap.InfoWindow({
+                        content: e.title,
+                        offset: {x: 0, y: -30}
+                    });
+                    marker.on('mouseover', () => {
+                        infoWindow.open(this.map, marker.getPosition());
+                    });
+                    marker.on('click', () => {
+                        this.$router.push({
+                            name: 'pointer',
+                            query: {
+                                pointId: e.pointId
+                            }
+                        })
+                    });
+                })
             },
             // 缩放、小地图预览、定位
             initPlugins() {
@@ -213,7 +246,8 @@
                 };
             },
         },
-        mounted() {
+        async mounted() {
+            await this.vxPoints();
             this.init();
             this.$nextTick(() => {
                 this.$refs.tipinput.onfocus = () => {

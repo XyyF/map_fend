@@ -16,11 +16,11 @@ export default {
         commit('setAccount', undefined)
     },
     async changeName({commit}, {name}) {
-        await api.editOwn({changedInfo: name});
+        await api.editOwn({changedInfo: {name}});
         commit('updateAccount', {name})
     },
     async changePhone({commit}, {phone}) {
-        await api.editOwn({changedInfo: phone});
+        await api.editOwn({changedInfo: {phone}});
         commit('updateAccount', {phone})
     },
     async modifyPassword(context, {originalPassword, newPassword}) {

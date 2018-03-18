@@ -41,7 +41,7 @@
 <style src="./styles/iconfont.css"></style>
 <style src="./styles/iconfont_all/iconfont.css"></style>
 
-<style>
+<style lang="scss" rel="stylesheet/scss">
     .root-page {
         width: 297px;
         height: 590px;
@@ -59,6 +59,31 @@
         position: absolute;
         left: 15px;
         top: 61px;
-
+        overflow-y: scroll;
+        &::-webkit-scrollbar { /* 滚动条整体部分 */
+            width: 2px;
+        }
+        &::-webkit-scrollbar-button { /* 滚动条两端的按钮 */
+            width: 0;
+            height: 0;
+        }
+        &::-webkit-scrollbar-track { /* 外层轨道 */
+            border-right: 1px solid transparent;
+            border-left: 1px solid transparent;
+        }
+        &::-webkit-scrollbar-track-piece { /*内层轨道，滚动条中间部分 */
+            background-color: #FFF;
+            border-radius: 10px;
+        }
+        &::-webkit-scrollbar-thumb { /* 滑块 */
+            border-radius: 8px;
+            background: #CBCBCB;
+        }
+        &::-webkit-scrollbar-corner { /* 边角 */
+            display: block;
+        }
+        &::-webkit-scrollbar-thumb:hover { /* 鼠标移入滑块 */
+            background: #909090;
+        }
     }
 </style>

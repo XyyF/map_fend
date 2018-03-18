@@ -5,8 +5,12 @@
             <span>修改手机号</span>
         </div>
         <div class="detail-wrap">
-            <mt-field label="原手机号" placeholder="请输入原手机号" v-model="originPhone" :state="state1"></mt-field>
-            <mt-field label="新手机号" placeholder="请输入新手机号" v-model="newPhone" :state="state2"></mt-field>
+            <mt-field label="原手机号"
+                      :attr="{ 'maxlength': 11 }"
+                      placeholder="请输入原手机号" v-model="originPhone" :state="state1"></mt-field>
+            <mt-field label="新手机号"
+                      :attr="{ 'maxlength': 11 }"
+                      placeholder="请输入新手机号" v-model="newPhone" :state="state2"></mt-field>
         </div>
         <mt-button class="button" type="primary" :disabled="disabledButton" @click.native="editName">确定</mt-button>
     </div>
