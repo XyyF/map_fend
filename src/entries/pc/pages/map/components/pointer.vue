@@ -93,6 +93,7 @@
                     content: this.content
                 }).then(() => {
                     this.toast('留言成功!');
+                    this.content = ''
                 })
             },
         },
@@ -154,7 +155,7 @@
         .leave-message {
             width: 267px;
             position: fixed;
-            bottom: 73px;
+            bottom: 154px;
             border-top: 1px solid #888;
             .mint-field-core {
                 border: 1px solid #888;

@@ -17,8 +17,8 @@ export default {
         state.pointDetail.messages.push({
             content,
             manager: {
-                accountId: accountState.myAccount.accountId,
-                name: accountState.myAccount.name
+                accountId: accountState.state.myAccount.accountId,
+                name: accountState.state.myAccount.name
             }
         })
     },
